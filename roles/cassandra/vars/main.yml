@@ -1,0 +1,22 @@
+# file: /roles/cassandra/vars/main.yml
+# Expected tar ball format:
+
+# Version of Cassandra to install
+cassandra_version_major : 2
+cassandra_version_minor : 1
+cassandra_version_patch : 2
+
+# Expected file name of tar ball that contains java version to install
+cassandra_tar_name: "apache-cassandra-{{ cassandra_version_major }}.{{ cassandra_version_minor }}.{{ cassandra_version_patch }}-bin.tar"
+
+# Expected directory name of untared tar ball that contains Cassandra version to install
+cassandra_untar_name: "apache-cassandra-{{ cassandra_version_major }}.{{ cassandra_version_minor }}.{{ cassandra_version_patch }}"
+
+# URI that points to Cassandra tar ball
+cassandra_uri: "{{ s3bucket_uri }}/cassandra/{{ cassandra_tar_name }}"
+
+# Name of Cassandra directory
+cassandra_home_name: "cassandra-{{ cassandra_version_major }}.{{ cassandra_version_minor }}.{{ cassandra_version_patch }}"
+
+# CASSANDRA_HOME directory
+cassandra_home: "{{ cassandra_install_dir }}/{{ cassandra_home_name }}"

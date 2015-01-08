@@ -1,0 +1,102 @@
+---
+# file: /roles/java/tasks/main.yml
+
+- name: Create temporary dir 'tmp' on remote node
+  file: >
+    path={{ tmp_dir }}
+    state=directory
+    recurse=yes
+    owner={{ user }}
+    group={{ user }}
+    mode="0755"
+
+- name: Download Java tar ball from S3
+  get_url: >
+    url={{ java_uri }}
+    dest={{ tmp_dir }}
+
+- name: Untar Java tar ball
+  command: tar -xvf {{ tmp_dir }}/{{ java_tar_name }} -C {{ tmp_dir }}
+
+- name: Remove Java install dir
+  sudo: yes
+  file: > 
+    path={{ java_install_dir }}
+    state=absent
+
+- name: Create target dir on remote node
+  sudo: yes
+  file: >
+    path={{ java_install_dir }}
+    state=directory
+    recurse=yes
+
+- name: Copy Java dir
+  sudo: yes
+  command: mv {{ tmp_dir }}/{{ java_untar_name }} {{ java_install_dir }}
+
+- name: Set JAVA_HOME in /etc/profile
+  sudo: yes
+  lineinfile: >
+    dest=/etc/profile
+    line="export JAVA_HOME={{ java_home }}"
+
+- name: Add JAVA_HOME to PATH in /etc/profile
+  sudo: yes
+  lineinfile: >
+    dest=/etc/profile
+    line="export PATH=$PATH:$JAVA_HOME/bin"
+
+- name: Set JAVA_HOME in /etc/bash.bashrc
+  sudo: yes
+  lineinfile: >
+    dest="/etc/bash.bashrc"
+    line="export JAVA_HOME={{ java_home }}"
+
+- name: Add JAVA_HOME to PATH in /etc/bash.bashrc
+  sudo: yes
+  lineinfile: >
+    dest="/etc/bash.bashrc"
+    line="export PATH=$PATH:$JAVA_HOME/bin"
+
+- name: Set JAVA_HOME in /etc/skel/.bashrc
+  sudo: yes
+  lineinfile: >
+    dest=/etc/skel/.bashrc
+    line="export JAVA_HOME={{ java_home }}"
+
+- name: Add JAVA_HOME to PATH in /etc/skel/.bashrc
+  sudo: yes
+  lineinfile: >
+    dest=/etc/skel/.bashrc
+    line="export PATH=$PATH:$JAVA_HOME/bin"
+
+- name: Set JAVA_HOME in /home/ubuntu/.bashrc
+  sudo: yes
+  lineinfile: >
+    dest=/home/ubuntu/.bashrc
+    line="export JAVA_HOME={{ java_home }}"
+    
+- name: Add JAVA_HOME to PATH in /home/ubuntu/.bashrc
+  sudo: yes
+  lineinfile: >
+    dest=/home/ubuntu/.bashrc
+    line="export PATH=$PATH:$JAVA_HOME/bin"
+
+- name: Set JAVA_HOME in /root/.bashrc
+  sudo: yes
+  lineinfile: >
+    dest=/root/.bashrc
+    line="export JAVA_HOME={{ java_home }}"
+
+- name: Set JAVA_HOME in /root/.bashrc
+  sudo: yes
+  lineinfile: >
+    dest=/root/.bashrc
+    line="export PATH=$PATH:$JAVA_HOME/bin"
+
+- name: Remove tmp dir
+  sudo: yes
+  file: > 
+    path={{ tmp_dir }}
+    state=absent

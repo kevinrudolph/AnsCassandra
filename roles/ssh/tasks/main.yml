@@ -1,0 +1,52 @@
+# file: /roles/ssh/tasks/main.yml
+
+- name: Create conf file '/etc/hosts'
+  sudo : yes
+  template: > 
+    src=hosts.j2 
+    dest={{ hosts_file }}
+    mode=0644
+
+- name: Create conf file '/.ssh/config'
+  sudo : yes
+  template: > 
+    src=config.j2 
+    dest={{ ssh_dir }}/config
+    mode=0600
+
+- name: Remove ssh key file on remote node
+  sudo: yes
+  file: > 
+    path={{ privatekey_file }}
+    state=absent
+
+- name: Create temporary dir 'tmp' on remote node
+  file: >
+    path={{ tmp_dir }}
+    state=directory
+    recurse=yes
+    owner={{ user }}
+    group={{ user }}
+    mode="0755"
+
+- name: Push ssh private key file to remote node dir 'tmp'
+  sudo: yes
+  copy: >
+    src={{ privatekeysrc_file }}
+    dest="{{ tmp_dir }}/"
+    owner={{ user }}
+    group={{ user }}
+    mode="0755"
+
+- name: Copy and rename ssh private key file on remote node
+  command: mv {{ tmp_dir }}/{{ privatekeysrc_filename }} {{ privatekey_file }}
+  
+- name: Set permissions on SSH private key file to 600
+  sudo: yes
+  command: chmod 600 {{ privatekey_file }}
+
+- name: Remove tmp dir
+  sudo: yes
+  file: > 
+    path={{ tmp_dir }}
+    state=absent

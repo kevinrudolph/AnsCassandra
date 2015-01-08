@@ -1,0 +1,6 @@
+{# file: file: /roles/ssh/templates/hosts.j2 #}
+{# Jinja2 template to render a /etc/hosts file #}
+{# 127.0.0.1 localhost #}
+{% for host in groups['tag_cassandra_true'] %}
+{{ hostvars[host]['ansible_eth0']['ipv4']['address'] }}  {{ hostvars[host]['ec2_private_dns_name']}}
+{% endfor %}

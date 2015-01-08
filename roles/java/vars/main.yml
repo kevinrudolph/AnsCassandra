@@ -1,0 +1,19 @@
+# file: /roles/java/vars/main.yml
+# Expected tar ball format: jdk-{{ java_version_minor }}u{{ java_version_patch }}-linux-x64.tar
+
+# Version of Oracle Java JDK to install
+java_version_major : 1
+java_version_minor : 7
+java_version_patch : 67
+
+# Expected file name of tar ball that contains java version to install
+java_tar_name : "jdk-{{ java_version_minor }}u{{ java_version_patch }}-linux-x64.tar"
+
+# Expected directory name of untared tar ball that contains java version to install
+java_untar_name : "jdk{{ java_version_major }}.{{ java_version_minor }}.0_{{ java_version_patch }}"
+
+# URI that points to java tar ball
+java_uri : "{{ s3bucket_uri }}/java/{{ java_tar_name }}"
+
+# JAVA_HOME directory
+java_home : "{{ java_install_dir }}/{{ java_untar_name }}/"

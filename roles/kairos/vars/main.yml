@@ -1,0 +1,22 @@
+# file: /roles/kairos/vars/main.yml
+# Expected tar ball format:
+
+# Version of KairosDB to install
+kairos_version_major : 0
+kairos_version_minor : 9
+kairos_version_patch : 3
+
+# Expected file name of tar ball that contains java version to install
+kairos_tar_name: "kairosdb-{{ kairos_version_major }}.{{ kairos_version_minor }}.{{ kairos_version_patch }}.tar"
+
+# Expected directory name of untared tar ball that contains Kairosdb version to install
+kairos_untar_name: "kairosdb"
+
+# URI that points to Kairosdb tar ball
+kairos_uri: "{{ s3bucket_uri }}/kairosdb/{{ kairos_tar_name }}"
+
+# Name of Kairosdb directory
+kairos_home_name: "kairosdb-{{ kairos_version_major }}.{{ kairos_version_minor }}.{{ kairos_version_patch }}"
+
+# KAIROSDB_HOME directory
+kairos_home: "{{ kairos_install_dir }}/{{ kairos_home_name }}"

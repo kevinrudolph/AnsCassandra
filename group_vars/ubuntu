@@ -1,0 +1,11 @@
+# file: group_vars/ubuntu
+# This file contains variables specific to deployments on operating systems based on Ubuntu
+
+user: ubuntu
+hosts_file: /etc/hosts
+home_dir: "/home/{{ user }}"
+tmp_dir: "{{ home_dir }}/tmp"
+
+# Target folder on remote nodes to install software
+java_install_dir : "/opt/java/64/oracle-java{{ java_version_minor }}"
+cassandra_install_dir : "{{ home_dir }}/cassandra"

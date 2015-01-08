@@ -1,0 +1,6 @@
+# file: /roles/ssh/vars/main.yml
+privatekeysrc_filename: "jk_giraph_f.pem"
+privatekeysrc_file : "/Users/jk/{{ privatekeysrc_filename }}"
+
+ssh_dir: "{{ home_dir }}/.ssh"
+privatekey_file: "{{ ssh_dir }}/id_rsa"
