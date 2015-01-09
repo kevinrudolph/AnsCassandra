@@ -1,5 +1,5 @@
 ---
-# file: /roles/kairos/tasks/main.yml
+# file: /roles/newts/tasks/main.yml
 
 - name: Create temporary dir 'tmp' on remote node
   file: >
@@ -10,33 +10,33 @@
     group={{ user }}
     mode="0755"
 
-- name: Download KairosDB tar ball from S3
+- name: Download tar ball from S3
   get_url: >
-    url={{ kairos_uri }}
+    url={{ newts_uri }}
     dest={{ tmp_dir }}
 
-- name: Untar KairosDB tar ball
-  command: tar -xvf {{ tmp_dir }}/{{ kairos_tar_name }} -C {{ tmp_dir }}
+- name: Untar tar ball
+  command: tar -xvf {{ tmp_dir }}/{{ newts_tar_name }} -C {{ tmp_dir }}
 
   # touch untared dir, but add/remove some permissions
 - file: >
-    path={{ tmp_dir }}/{{ kairos_untar_name }}
+    path={{ tmp_dir }}/{{ newts_untar_name }}
     state=directory
     recurse=yes
     owner={{ user }}
     group={{ user }}
     mode="0755"
 
-- name: Remove KairosDB install dir
+- name: Remove install dir
   sudo: yes
   file: > 
-    path={{ kairos_install_dir }}
+    path={{ newts_install_dir }}
     state=absent
 
 - name: Create target dir on remote node
   sudo: yes
   file: >
-    path={{ kairos_home }}
+    path={{ newts_home }}
     state=directory
     recurse=yes
     owner={{ user }}
@@ -45,18 +45,18 @@
 
 - name: Copy content of extracted tar ball to install dir
   sudo: yes
-  shell: "mv {{ tmp_dir }}/{{ kairos_untar_name }}/* {{ kairos_home }}/"
+  shell: "mv {{ tmp_dir }}/{{ newts_untar_name }}/* {{ newts_home }}/"
 
-- name: Remove conf file '$KAIROSDB_HOME/conf/kairosdb.properties'
+- name: Remove conf file '$NEWTS_HOME/etc/config.yaml'
   sudo: yes
   file: > 
-    path={{ kairos_home }}/conf/kairosdb.properties
+    path={{ newts_home }}/etc/config.yaml
     state=absent
 
-- name: Create conf file '$KAIROSDB_HOME/conf/kairosdb.properties'
+- name: Create conf file '$NEWTS_HOME/etc/config.yaml'
   template: >
-    src=kairosdb.properties.j2
-    dest={{ kairos_home}}/conf/kairosdb.properties
+    src=config.yaml.j2
+    dest={{ newts_home }}/etc/config.yaml
     owner={{ user }}
     group={{ user }}
     mode=0755

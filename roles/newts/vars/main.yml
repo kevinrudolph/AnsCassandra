@@ -1,0 +1,22 @@
+# file: /roles/newts/vars/main.yml
+# Expected tar ball format:
+
+# Version of Newts to install
+newts_version_major : 1
+newts_version_minor : 0
+newts_version_patch : 0
+
+# Expected file name of tar ball that contains java version to install
+newts_tar_name: "newts-{{ newts_version_major }}.{{ newts_version_minor }}.{{ newts_version_patch }}-bin.tar"
+
+# Expected directory name of untared tar ball that contains Newts version to install
+newts_untar_name: "newts-{{ newts_version_major }}.{{ newts_version_minor }}.{{ newts_version_patch }}"
+
+# URI that points to Newts tar ball
+newts_uri: "{{ s3bucket_uri }}/newts/{{ newts_tar_name }}"
+
+# Name of Newts directory
+newts_home_name: "newts-{{ newts_version_major }}.{{ newts_version_minor }}.{{ newts_version_patch }}"
+
+# NEWTS_HOME directory
+newts_home: "{{ newts_install_dir }}/{{ newts_home_name }}"

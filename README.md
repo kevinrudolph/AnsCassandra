@@ -45,3 +45,4 @@ Via Kairos:
 
 === Open Tickets ===
 - CQLSH_HOST setzen
+- Add NewTS: https://github.com/OpenNMS/newts
