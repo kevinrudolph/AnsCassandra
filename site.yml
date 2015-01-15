@@ -1,7 +1,7 @@
 ---
 # This Playbook deploys a KairosDB cluster on Amazon EC2
 
-- hosts: tag_cassandra_true:tag_kairos_true:tag_newts_true:tag_ycsb_true:&tag_Name_exp1
+- hosts: tag_cassandra_true:tag_kairos_true:tag_newts_true:tag_ycsb_true
   remote_user: ubuntu
   sudo: true
   gather_facts: yes
@@ -14,7 +14,7 @@
   - role: ssh
   - role: java
 
-- hosts: tag_cassandra_true:&tag_Name_exp1
+- hosts: tag_cassandra_true
   remote_user: ubuntu
   sudo: true
   gather_facts: yes
@@ -26,7 +26,7 @@
   roles:
   - role: cassandra
 
-- hosts: tag_kairos_true:&tag_Name_exp1
+- hosts: tag_kairos_true
   remote_user: ubuntu
   sudo: true
   gather_facts: yes
@@ -38,7 +38,7 @@
   roles:
   - role: kairos
 
-- hosts: tag_newts_true:&tag_Name_exp1
+- hosts: tag_newts_true
   remote_user: ubuntu
   sudo: true
   gather_facts: yes
@@ -50,7 +50,7 @@
   roles:
   - role: newts
 
-- hosts: tag_ycsb_true:&tag_Name_exp1
+- hosts: tag_ycsb_true
   remote_user: ubuntu
   sudo: true
   gather_facts: yes
