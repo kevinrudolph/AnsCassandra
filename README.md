@@ -10,6 +10,8 @@ Install Ansible:
 Deploy EC2 instances and choose between the following instance tag(s):
 - cassandra: true
 - kairos: true
+- newts: true
+- ycsb: true
 
 Export AWS credentials:
 - export AWS_ACCESS_KEY_ID='$MY_AWS_ACCESS_KEY_ID'
