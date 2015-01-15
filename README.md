@@ -16,6 +16,7 @@ Deploy EC2 instances and choose between the following instance tag(s):
 Export AWS credentials:
 - export AWS_ACCESS_KEY_ID='$MY_AWS_ACCESS_KEY_ID'
 - export AWS_SECRET_ACCESS_KEY='$MY_AWS_SECRET_ACCESS_KEY'
+- set reference to your private key file in /roles/ssh/vars/main.yml
 
 Clone repo:
 
