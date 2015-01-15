@@ -1,0 +1,22 @@
+# file: /roles/ycsb/vars/main.yml
+# Expected tar ball format:
+
+# Version to install
+ycsb_version_major : 0
+ycsb_version_minor : 1
+ycsb_version_patch : 4
+
+# Expected file name of tar ball that contains java version to install
+ycsb_tar_name: "ycsb-{{ ycsb_version_major }}.{{ ycsb_version_minor }}.{{ ycsb_version_patch }}.tar"
+
+# Expected directory name of untared tar ball
+ycsb_untar_name: "ycsb-{{ ycsb_version_major }}.{{ ycsb_version_minor }}.{{ ycsb_version_patch }}"
+
+# URI that points to remote tar ball
+ycsb_uri: "{{ s3bucket_uri }}/ycsb/{{ ycsb_tar_name }}"
+
+# Name of YCSB directory
+ycsb_home_name: "ycsb-{{ ycsb_version_major }}.{{ ycsb_version_minor }}.{{ ycsb_version_patch }}"
+
+# YCSB_HOME directory
+ycsb_home: "{{ ycsb_install_dir }}/{{ ycsb_home_name }}"

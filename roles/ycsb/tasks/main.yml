@@ -1,0 +1,135 @@
+---
+# file: /roles/ycsb/tasks/main.yml
+
+- name: Create temporary dir 'tmp' on remote node
+  file: >
+    path={{ tmp_dir }}
+    state=directory
+    recurse=yes
+    owner={{ user }}
+    group={{ user }}
+    mode="0755"
+
+- name: Download tar ball from S3
+  get_url: >
+    url={{ ycsb_uri }}
+    dest={{ tmp_dir }}
+
+- name: Untar tar ball
+  command: tar -xvf {{ tmp_dir }}/{{ ycsb_tar_name }} -C {{ tmp_dir }}
+
+  # touch untared dir, but add/remove some permissions
+- file: >
+    path={{ tmp_dir }}/{{ ycsb_untar_name }}
+    state=directory
+    recurse=yes
+    owner={{ user }}
+    group={{ user }}
+    mode="0755"
+
+- name: Remove install dir
+  sudo: yes
+  file: > 
+    path={{ ycsb_install_dir }}
+    state=absent
+
+- name: Create target dir on remote node
+  sudo: yes
+  file: >
+    path={{ ycsb_home }}
+    state=directory
+    recurse=yes
+    owner={{ user }}
+    group={{ user }}
+    mode="0755"
+
+- name: Copy content of extracted tar ball to install dir
+  sudo: yes
+  shell: "mv {{ tmp_dir }}/{{ ycsb_untar_name }}/* {{ ycsb_home }}/"
+
+# - name: Remove conf file '$CYCSB_HOME/conf/cassandra.yaml'
+#   sudo: yes
+#   file: > 
+#     path={{ cassandra_home }}/conf/cassandra.yaml
+#     state=absent
+
+# - name: Create conf file '$CASSANDRA_HOME/conf/cassandra.yaml'
+#   template: >
+#     src=cassandra.yaml.j2
+#     dest={{ cassandra_home}}/conf/cassandra.yaml
+#     owner={{ user }}
+#     group={{ user }}
+#     mode=0755
+
+### ENVIRONMENT VARIABLES ###
+
+# /etc/profile
+- name: Set YCSB_HOME in /etc/profile
+  sudo: yes
+  lineinfile: >
+    dest=/etc/profile
+    line="export YCSB_HOME={{ ycsb_home }}"
+
+- name: Add YCSB_HOME to PATH in /etc/profile
+  sudo: yes
+  lineinfile: >
+    dest=/etc/profile
+    line="export PATH=$PATH:$YCSB_HOME/bin"
+
+# /etc/bash.bashrc
+- name: Set YCSB_HOME in /etc/bash.bashrc
+  sudo: yes
+  lineinfile: >
+    dest="/etc/bash.bashrc"
+    line="export YCSB_HOME={{ ycsb_home }}"
+
+- name: Add YCSB_HOME to PATH in /etc/bash.bashrc
+  sudo: yes
+  lineinfile: >
+    dest="/etc/bash.bashrc"
+    line="export PATH=$PATH:$YCSB_HOME/bin"
+
+# /etc/skel/.bashrc
+- name: Set YCSB_HOME in /etc/skel/.bashrc
+  sudo: yes
+  lineinfile: >
+    dest=/etc/skel/.bashrc
+    line="export YCSB_HOME={{ ycsb_home }}"
+
+- name: Add YCSB_HOME to PATH in /etc/skel/.bashrc
+  sudo: yes
+  lineinfile: >
+    dest=/etc/skel/.bashrc
+    line="export PATH=$PATH:$YCSB_HOME/bin"
+
+# /home/ubuntu/.bashrc
+- name: Set YCSB_HOME in /home/ubuntu/.bashrc
+  sudo: yes
+  lineinfile: >
+    dest=/home/ubuntu/.bashrc
+    line="export YCSB_HOME={{ ycsb_home }}"
+    
+- name: Add YCSB_HOME to PATH in /home/ubuntu/.bashrc
+  sudo: yes
+  lineinfile: >
+    dest=/home/ubuntu/.bashrc
+    line="export PATH=$PATH:$YCSB_HOME/bin"
+
+# /root/.bashrc
+- name: Set YCSB_HOME in /root/.bashrc
+  sudo: yes
+  lineinfile: >
+    dest=/root/.bashrc
+    line="export YCSB_HOME={{ ycsb_home }}"
+
+- name: Set YCSB_HOME in /root/.bashrc
+  sudo: yes
+  lineinfile: >
+    dest=/root/.bashrc
+    line="export PATH=$PATH:$YCSB_HOME/bin"
+
+- name: Remove tmp dir
+  sudo: yes
+  file: > 
+    path={{ tmp_dir }}
+    state=absent

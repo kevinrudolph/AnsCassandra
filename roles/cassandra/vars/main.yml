@@ -20,3 +20,10 @@ cassandra_home_name: "cassandra-{{ cassandra_version_major }}.{{ cassandra_versi
 
 # CASSANDRA_HOME directory
 cassandra_home: "{{ cassandra_install_dir }}/{{ cassandra_home_name }}"
+
+# Name of dir that contains CQL scripts
+cql_home: "{{ cassandra_install_dir }}/cql"
+
+
+### CQL SCRIPTS ###
+setup_ycsb_cql: "setup-ycsb.cql"

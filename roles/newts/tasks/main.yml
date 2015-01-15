@@ -61,6 +61,28 @@
     group={{ user }}
     mode=0755
 
+- name: Remove jar file '$NEWTS_HOME/lib/cassandra-driver-core-2.0.0-rc2.jar'
+  sudo: yes
+  file: > 
+    path={{ newts_home }}/lib/cassandra-driver-core-2.0.0-rc2.jar
+    state=absent
+
+- name: Download jar file from URI
+  get_url: >
+    url={{ cassandra_driver_core_uri }}
+    dest={{ tmp_dir }}
+
+  # touch untared dir, but add/remove some permissions
+- file: >
+    path={{ tmp_dir }}/{{ cassandra_driver_core_jar_name }}
+    owner={{ user }}
+    group={{ user }}
+    mode="0755"
+
+- name: Copy content of extracted tar ball to install dir
+  sudo: yes
+  shell: "mv {{ tmp_dir }}/{{ cassandra_driver_core_jar_name }} {{ newts_home }}/lib/"
+
 - name: Remove tmp dir
   sudo: yes
   file: > 

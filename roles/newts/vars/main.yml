@@ -6,14 +6,25 @@ newts_version_major : 1
 newts_version_minor : 0
 newts_version_patch : 0
 
+# Version of cassandra-driver-core
+cassandra_driver_core_version_major : 2
+cassandra_driver_core_version_minor : 1
+cassandra_driver_core_version_patch : 2
+
 # Expected file name of tar ball that contains java version to install
 newts_tar_name: "newts-{{ newts_version_major }}.{{ newts_version_minor }}.{{ newts_version_patch }}-bin.tar"
+
+# Expected file name of jar file that contains cassandra-driver-core
+cassandra_driver_core_jar_name: "cassandra-driver-core-{{ cassandra_driver_core_version_major }}.{{ cassandra_driver_core_version_minor }}.{{ cassandra_driver_core_version_patch }}.jar"
 
 # Expected directory name of untared tar ball that contains Newts version to install
 newts_untar_name: "newts-{{ newts_version_major }}.{{ newts_version_minor }}.{{ newts_version_patch }}"
 
 # URI that points to Newts tar ball
 newts_uri: "{{ s3bucket_uri }}/newts/{{ newts_tar_name }}"
+
+# URI that points to jar: cassandra-driver-core-2.1.2
+cassandra_driver_core_uri: "{{ s3bucket_uri }}/newts/{{ cassandra_driver_core_jar_name }}"
 
 # Name of Newts directory
 newts_home_name: "newts-{{ newts_version_major }}.{{ newts_version_minor }}.{{ newts_version_patch }}"

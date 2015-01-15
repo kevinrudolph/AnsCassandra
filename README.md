@@ -1,6 +1,8 @@
 This Ansible playbook deploys an Apache Cassandra cluster on an AWS EC2 cluster running Ubuntu operationg system.
 
+
 === Deploy cluster ===
+
 Install Ansible:
 
 Deploy EC2 instances and choose between the following instance tag(s):
@@ -24,7 +26,9 @@ Run ansible:
 - cd $AnsCassandra_HOME
 - ansible-playbook --private-key=$MY_PRIVATE_KEY_FILE -i ec2.py site.yml
 
+
 === Operate cluster ===
+
 Start node: $CASSANDRA_HOME/bin/cassandra
 
 Stop node: pkill -f CassandraDaemon
@@ -33,16 +37,20 @@ Start KairosDB: $KAIROS_HOME/bin/kairosdb.sh run
 
 Stop KairosDB: $KAIROS_HOME/bin/kairosdb.sh stop
 
+
 === CHECK IT OUT ===
+
 Run nodetool: $CASSANDRA_HOME/bin/nodetool status
 
 Check Cassandra keyspaces: $CASSANDRA_HOME/bin/nodetool cfstats
 
+
 === PUSH/PULL DATA ===
+
 Via cqlsh: $CASSANDRA_HOME/bin/cqlsh
 
 Via Kairos: 
 
 === Open Tickets ===
 - CQLSH_HOST setzen
-- Add NewTS: https://github.com/OpenNMS/newts
+- Port NewTS to Cassandra 2.1.x
