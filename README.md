@@ -4,6 +4,8 @@ This Ansible playbook deploys an Apache Cassandra cluster on an AWS EC2 cluster 
 === Deploy cluster ===
 
 Install Ansible:
+- install Python
+- install Boto
 
 Deploy EC2 instances and choose between the following instance tag(s):
 - cassandra: true
