@@ -12,3 +12,7 @@
 - name: Install AWS CLI
   sudo: yes
   pip: name=awscli
+
+- name: Install mdadm
+  sudo: yes
+  apt: name=mdadm update_cache=yes

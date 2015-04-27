@@ -13,7 +13,7 @@ java_tar_name : "jdk-{{ java_version_minor }}u{{ java_version_patch }}-linux-x64
 java_untar_name : "jdk{{ java_version_major }}.{{ java_version_minor }}.0_{{ java_version_patch }}"
 
 # URI that points to java tar ball
-java_uri : "{{ s3bucket_uri }}/java/{{ java_tar_name }}"
+java_uri : "{{ s3_bucket_uri }}/java/{{ java_tar_name }}"
 
 # JAVA_HOME directory
 java_home : "{{ java_install_dir }}/{{ java_untar_name }}/"

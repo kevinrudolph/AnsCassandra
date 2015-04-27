@@ -1,0 +1,9 @@
+---
+# file: /roles/dstat/vars/main.yml
+
+dstat_monitoring_dir : "{{ monitoring_dir }}/dstat"
+
+dstat_moving_window: 1
+dstat_complete_interval: 1800
+
+dstat_screen_name: "dstatcollector"

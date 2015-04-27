@@ -13,7 +13,7 @@ ycsb_tar_name: "ycsb-{{ ycsb_version_major }}.{{ ycsb_version_minor }}.{{ ycsb_v
 ycsb_untar_name: "ycsb-{{ ycsb_version_major }}.{{ ycsb_version_minor }}.{{ ycsb_version_patch }}"
 
 # URI that points to remote tar ball
-ycsb_uri: "{{ s3bucket_uri }}/ycsb/{{ ycsb_tar_name }}"
+ycsb_uri: "{{ s3_bucket_uri }}/ycsb/{{ ycsb_tar_name }}"
 
 # Name of YCSB directory
 ycsb_home_name: "ycsb-{{ ycsb_version_major }}.{{ ycsb_version_minor }}.{{ ycsb_version_patch }}"

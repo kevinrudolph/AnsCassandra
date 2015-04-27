@@ -1,0 +1,27 @@
+---
+# file: /roles/dstat/tasks/main.yml
+
+- name: Create monitoring dir '.../dstat' on remote node
+  file: >
+    path={{ dstat_monitoring_dir }}
+    state=directory
+    recurse=yes
+    owner={{ user }}
+    group={{ user }}
+    mode="0755"
+
+- name: Install dstat via package manager
+  sudo: yes
+  apt: name=dstat update_cache=yes
+
+- name: Install screen via package manager
+  sudo: yes
+  apt: name=screen update_cache=yes
+
+- name: Create shell script to execute dstat
+  template: >
+    src=start_dstat_monitoring.sh.j2
+    dest={{ dstat_monitoring_dir }}/start_dstat_monitoring.sh
+    owner={{ user }}
+    group={{ user }}
+    mode=0755

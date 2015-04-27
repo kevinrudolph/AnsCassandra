@@ -1,0 +1,86 @@
+{
+  "_meta": {
+    "hostvars": {
+      "54.93.63.154": {
+        "ec2__in_monitoring_element": false, 
+        "ec2_ami_launch_index": "0", 
+        "ec2_architecture": "x86_64", 
+        "ec2_client_token": "whFqc1421678039275", 
+        "ec2_dns_name": "ec2-54-93-63-154.eu-central-1.compute.amazonaws.com", 
+        "ec2_ebs_optimized": false, 
+        "ec2_eventsSet": "", 
+        "ec2_group_name": "", 
+        "ec2_hypervisor": "xen", 
+        "ec2_id": "i-1e36e1df", 
+        "ec2_image_id": "ami-b83c0aa5", 
+        "ec2_instance_profile": "", 
+        "ec2_instance_type": "t2.micro", 
+        "ec2_ip_address": "54.93.63.154", 
+        "ec2_item": "", 
+        "ec2_kernel": "", 
+        "ec2_key_name": "jk_f_2015", 
+        "ec2_launch_time": "2015-01-19T14:33:59.000Z", 
+        "ec2_monitored": false, 
+        "ec2_monitoring": "", 
+        "ec2_monitoring_state": "disabled", 
+        "ec2_persistent": false, 
+        "ec2_placement": "eu-central-1b", 
+        "ec2_platform": "", 
+        "ec2_previous_state": "", 
+        "ec2_previous_state_code": 0, 
+        "ec2_private_dns_name": "ip-172-31-2-22.eu-central-1.compute.internal", 
+        "ec2_private_ip_address": "172.31.2.22", 
+        "ec2_public_dns_name": "ec2-54-93-63-154.eu-central-1.compute.amazonaws.com", 
+        "ec2_ramdisk": "", 
+        "ec2_reason": "", 
+        "ec2_region": "eu-central-1", 
+        "ec2_requester_id": "", 
+        "ec2_root_device_name": "/dev/sda1", 
+        "ec2_root_device_type": "ebs", 
+        "ec2_security_group_ids": "sg-e88e7281", 
+        "ec2_security_group_names": "cassandra_newts_kairos", 
+        "ec2_sourceDestCheck": "true", 
+        "ec2_spot_instance_request_id": "", 
+        "ec2_state": "running", 
+        "ec2_state_code": 16, 
+        "ec2_state_reason": "", 
+        "ec2_subnet_id": "subnet-bf1019c7", 
+        "ec2_tag_Name": "giraph", 
+        "ec2_tag_cassandra": "true", 
+        "ec2_tag_ycsb": "true", 
+        "ec2_virtualization_type": "hvm", 
+        "ec2_vpc_id": "vpc-b351b3da"
+      }
+    }
+  }, 
+  "ec2": [
+    "54.93.63.154"
+  ], 
+  "eu-central-1": [
+    "54.93.63.154"
+  ], 
+  "eu-central-1b": [
+    "54.93.63.154"
+  ], 
+  "i-1e36e1df": [
+    "54.93.63.154"
+  ], 
+  "key_jk_f_2015": [
+    "54.93.63.154"
+  ], 
+  "security_group_cassandra_newts_kairos": [
+    "54.93.63.154"
+  ], 
+  "tag_Name_giraph": [
+    "54.93.63.154"
+  ], 
+  "tag_cassandra_true": [
+    "54.93.63.154"
+  ], 
+  "tag_ycsb_true": [
+    "54.93.63.154"
+  ], 
+  "type_t2_micro": [
+    "54.93.63.154"
+  ]
+}

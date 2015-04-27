@@ -1,0 +1,7 @@
+---
+# file: /roles/dstat/tasks/enabled_monitoring.yml
+
+- name: Start monitoring process within screen
+  shell: "screen -S {{ dstat_screen_name }} -d -m {{ dstat_monitoring_dir }}/start_dstat_monitoring.sh"
+  tags:
+    - monitoring_started

@@ -13,7 +13,7 @@ cassandra_tar_name: "apache-cassandra-{{ cassandra_version_major }}.{{ cassandra
 cassandra_untar_name: "apache-cassandra-{{ cassandra_version_major }}.{{ cassandra_version_minor }}.{{ cassandra_version_patch }}"
 
 # URI that points to Cassandra tar ball
-cassandra_uri: "{{ s3bucket_uri }}/cassandra/{{ cassandra_tar_name }}"
+cassandra_uri: "{{ s3_bucket_uri }}/cassandra/{{ cassandra_tar_name }}"
 
 # Name of Cassandra directory
 cassandra_home_name: "cassandra-{{ cassandra_version_major }}.{{ cassandra_version_minor }}.{{ cassandra_version_patch }}"

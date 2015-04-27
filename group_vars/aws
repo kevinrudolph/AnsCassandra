@@ -2,6 +2,4 @@
 # This file contains variables specific to AWS
 
 # S3
-s3bucket_uri: https://s3-eu-west-1.amazonaws.com/tub-ansible
-
-# EC2
+s3_bucket_uri: https://s3-eu-west-1.amazonaws.com/tub-ansible

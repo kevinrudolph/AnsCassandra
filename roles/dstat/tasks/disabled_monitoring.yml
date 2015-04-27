@@ -1,0 +1,7 @@
+---
+# file: /roles/dstat/tasks/disabled_monitoring.yml
+
+- name: kill monitoring process within screen
+  shell: "screen -X -S {{ dstat_screen_name }} quit"
+  tags:
+    - monitoring_stoped

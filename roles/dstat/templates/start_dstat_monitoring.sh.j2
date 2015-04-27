@@ -1,0 +1,8 @@
+#!/bin/bash
+# start_dstat_monitoring.sh
+
+NOW_DSTAT=$(date +%s)
+
+dstat -Tcdgilmnprsy --aio --fs --lock --socket --tcp --udp --unix --freespace --disk-util --noupdate --noheaders --output {{ dstat_monitoring_dir }}/dstat-{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}-${NOW_DSTAT}.csv {{ dstat_moving_window }} {{ dstat_complete_interval }}
+
+exit

@@ -12,3 +12,5 @@ cassandra_install_dir : "{{ home_dir }}/cassandra"
 kairos_install_dir : "{{ home_dir }}/kairosdb"
 newts_install_dir : "{{ home_dir }}/newts"
 ycsb_install_dir : "{{ home_dir }}/ycsb"
+
+monitoring_dir : "{{ home_dir }}/monitoring"

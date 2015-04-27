@@ -11,8 +11,10 @@
   # Importing cloud provider related variables, e.g., "group_vars/aws".
   - "group_vars/aws"
   roles:
+  - role: aws
   - role: ssh
   - role: java
+  - role: dstat
 
 - hosts: tag_cassandra_true
   remote_user: ubuntu
