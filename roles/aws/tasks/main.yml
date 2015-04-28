@@ -13,6 +13,6 @@
   sudo: yes
   pip: name=awscli
 
-- name: Install mdadm
+- name: Install Sysstat
   sudo: yes
-  apt: name=mdadm update_cache=yes
+  apt: name=sysstat update_cache=yes
