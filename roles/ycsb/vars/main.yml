@@ -10,7 +10,7 @@ ycsb_version_patch : 4
 ycsb_tar_name: "ycsb-{{ ycsb_version_major }}.{{ ycsb_version_minor }}.{{ ycsb_version_patch }}.tar"
 
 # Expected directory name of untared tar ball
-ycsb_untar_name: "ycsb-{{ ycsb_version_major }}.{{ ycsb_version_minor }}.{{ ycsb_version_patch }}"
+ycsb_untar_name: ""
 
 # URI that points to remote tar ball
 ycsb_uri: "{{ s3_bucket_uri }}/ycsb/{{ ycsb_tar_name }}"
