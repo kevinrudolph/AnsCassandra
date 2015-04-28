@@ -1,0 +1,64 @@
+# file: /roles/vil/vars/main.yml
+
+
+###########################################################
+# AWS: Credentials
+
+# Name of the ssh key used for authentification. Example: 
+#aws_ssh_key_file: "{{ ansible_env.AWS_KEY_FILE | basename }}"
+aws_key_file_name: "{{ aws_key_file | basename }}"
+
+aws_key_file_basename: "{{ aws_key_file_name | replace('.pem','') }}"
+
+# Id of the AWS access key
+# aws_access_key_id: "{{ AWS_ACCESS_KEY_ID }}"
+
+# Secret access key for AWS access key id
+# aws_secret_access_key: "{{ AWS_SECRET_ACCESS_KEY }}"
+
+
+###########################################################
+# EC2: Instances
+
+# number of EC2 instances to provision (domain: [0..N])
+aws_instance_number: 1
+
+# region (examples: [eu-central-1, eu-west-1]
+aws_region: "eu-west-1"
+
+# security group (examples by region: [eu-west-1: g-f314ea96], [eu-central-1:sg-03a2646a])
+aws_group_id: "sg-f314ea96"
+
+# vpn subnet (examples by region: [eu-west-1:subnet-503e2124], [eu-central-1:subnet-fa06e893])
+aws_vpc_subnet_id: "subnet-503e2124"
+
+# instance type (examples: [t2.micro, t2.small, m3.medium])
+aws_instance_type: "t2.micro"
+
+# ami id (examples by region: [eu-west-1:ami-234ecc54], [eu-central-1:ami-9a380b87])
+aws_image_id: "ami-234ecc54"
+
+# enable ebs-optimized instances (domain: BOOLEAN)
+aws_ebs_optimized: "false"
+
+# list of tags to set for instances (examples values: [cassandra:true, ycsb:true] )
+aws_instance_tags:
+  ycsb: "true"
+
+# [REGIQURED?] Type of operating system on AMI
+aws_os_type: "ubuntu"
+
+###########################################################
+# EBS: Block Storage Devices
+
+# list of device names to provision per EC2 instance (example values: ['/dev/xvdb', '/dev/xvdc'])
+ebs_volume_list: []
+
+# type of ebs volumes (domain: [gp2, io1, standard])
+ebs_volume_type: "gp2"
+
+# size of ebs volumes (domain: [0..N])
+ebs_volume_size: 2
+
+# number of provisioned IOPS of ebs volumes. REQUIRES: io1 (domain: [30..N])
+ebs_volume_piops: 30

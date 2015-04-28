@@ -1,6 +1,33 @@
 ---
 # This Playbook deploys a KairosDB cluster on Amazon EC2
 
+- name: Provisioning infrastructure for Cassandra cluster
+  hosts: localhost
+  gather_facts: True
+  vars:
+    aws_key_file: "{{ ansible_env.AWS_KEY_FILE }}"
+  vars_files:
+  - roles/vil/vars/cassandra.yml
+  roles:
+  - role: vil
+
+- name: Provisioning infrastructure for YCSB cluster
+  hosts: localhost
+  gather_facts: True
+  vars:
+    aws_key_file: "{{ ansible_env.AWS_KEY_FILE }}"
+  vars_files:
+  - roles/vil/vars/ycsb.yml
+  roles:
+  - role: vil
+  # tasks:
+  # - name: Print local variables
+  #   debug: msg="{{ ec2 }}"
+  # - name: Add new instances to corresponding groups
+  #   add_host: hostname={{ item.public_ip }} groupname=tag_cassandra_true
+  #   with_items: ec2.tagged_instances
+
+# FIXME: Wait for SSH to come up
 - hosts: tag_cassandra_true:tag_kairos_true:tag_newts_true:tag_ycsb_true
   remote_user: ubuntu
   sudo: true
@@ -28,29 +55,29 @@
   roles:
   - role: cassandra
 
-- hosts: tag_kairos_true
-  remote_user: ubuntu
-  sudo: true
-  gather_facts: yes
-  vars_files:
-  # Importing OS related variables, e.g., "group_vars/ubuntu".
-  - "group_vars/{{ ansible_distribution }}"
-  # Importing cloud provider related variables, e.g., "group_vars/aws".
-  - "group_vars/aws"
-  roles:
-  - role: kairos
+# - hosts: tag_kairos_true
+#   remote_user: ubuntu
+#   sudo: true
+#   gather_facts: yes
+#   vars_files:
+#   # Importing OS related variables, e.g., "group_vars/ubuntu".
+#   - "group_vars/{{ ansible_distribution }}"
+#   # Importing cloud provider related variables, e.g., "group_vars/aws".
+#   - "group_vars/aws"
+#   roles:
+#   - role: kairos
 
-- hosts: tag_newts_true
-  remote_user: ubuntu
-  sudo: true
-  gather_facts: yes
-  vars_files:
-  # Importing OS related variables, e.g., "group_vars/ubuntu".
-  - "group_vars/{{ ansible_distribution }}"
-  # Importing cloud provider related variables, e.g., "group_vars/aws".
-  - "group_vars/aws"
-  roles:
-  - role: newts
+# - hosts: tag_newts_true
+#   remote_user: ubuntu
+#   sudo: true
+#   gather_facts: yes
+#   vars_files:
+#   # Importing OS related variables, e.g., "group_vars/ubuntu".
+#   - "group_vars/{{ ansible_distribution }}"
+#   # Importing cloud provider related variables, e.g., "group_vars/aws".
+#   - "group_vars/aws"
+#   roles:
+#   - role: newts
 
 - hosts: tag_ycsb_true
   remote_user: ubuntu

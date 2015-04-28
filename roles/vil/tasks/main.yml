@@ -1,0 +1,45 @@
+---
+# file: /roles/vil/tasks/main.yml
+
+- name: Print local variables
+  debug: msg="{{ aws_key_file_basename }}"
+
+- name: Provisioning instances from AWS EC2
+  ec2:
+    key_name: "{{ aws_key_file_name | replace('.pem','') }}"
+    region: "{{ aws_region }}"
+    group_id: "{{ aws_group_id }}"
+    vpc_subnet_id: "{{ aws_vpc_subnet_id }}"
+    instance_type: "{{ aws_instance_type }}"
+    image: "{{ aws_image_id }}"
+    ebs_optimized: "{{ aws_ebs_optimized }}"
+    exact_count: "{{ aws_instance_number }}"
+    wait: yes
+    assign_public_ip: yes
+    #volumes: "{{ ebs_volumes }}"
+    instance_tags: "{{ aws_instance_tags }}"
+    count_tag: "{{ aws_instance_tags }}"
+  register: ec2
+
+# - name: Print local variables
+#   debug: msg="{{ ec2 }}"
+
+# - name: Add new instance to host group
+#   add_host: >
+#     name={{ item.public_ip }}
+#     groupname=testbed
+#   with_items: ec2.tagged_instances
+
+# - name: Print local variables
+#   debug: msg="ebs_volume_type={{ ebs_volume_type  }}"
+
+- name: Provision AWS EBS volumes
+  ec2_vol:
+    instance: "{{ item[0].id }}"
+    region: "{{ aws_region }}"
+    device_name: "{{ item[1] }}"
+    volume_size: "{{ ebs_volume_size }}"
+    volume_type: "{{ ebs_volume_type }}"
+  with_nested: 
+    - "{{ ec2.tagged_instances }}"
+    - "{{ ebs_volume_list }}"
