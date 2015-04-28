@@ -30,7 +30,7 @@
 - name: Remove install dir
   sudo: yes
   file: > 
-    path={{ cassandra_install_dir }}
+    path={{ cassandra_home }}
     state=absent
 
 - name: Create target dir on remote node

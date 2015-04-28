@@ -1,0 +1,47 @@
+---
+# file: tasks/mounted_dev.yml
+# Create FS and mount block storage device under test
+
+
+- name: "Check for mounted device at mountpoint: /home/ubuntu/fio - allowed to echo errors"
+  sudo: yes
+  command: "mountpoint -q {{ cassandra_install_dir }}/data"
+  ignore_errors: yes
+  register: is_mounted
+
+- name: "Create filesystem for device: /dev/md0"
+  sudo: yes
+  filesystem: >
+    fstype=ext4
+    dev="{{ sutdevice }}"
+    force=yes
+    opts="-b {{ fs_blocksize }}"
+  when: is_mounted.rc != 0
+
+- name: "Create mount dir '{{ cassandra_install_dir }}'/data"
+  file: >
+    path="{{ cassandra_install_dir }}/data"
+    state=directory
+    recurse=yes
+    owner=ubuntu
+    group=ubuntu
+    mode="0755"
+  when: is_mounted.rc != 0
+
+- name: Mount device under mount point
+  sudo: yes
+  mount: >
+    name="{{ cassandra_install_dir }}/data"
+    src="{{ sutdevice }}"
+    fstype=ext4
+    opts=noatime,nodiratime,discard,nobarrier
+    state=mounted
+  when: is_mounted.rc != 0
+
+- name: Change ownership to experiment user
+  sudo: yes
+  shell: "chown ubuntu:ubuntu {{ cassandra_install_dir }}/data"
+
+- name: Change ownership to experiment user
+  sudo: yes
+  shell: "chown ubuntu:ubuntu {{ cassandra_install_dir }}/data/lost+found/"

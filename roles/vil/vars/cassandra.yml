@@ -52,7 +52,7 @@ aws_os_type: "ubuntu"
 # EBS: Block Storage Devices
 
 # list of device names to provision per EC2 instance (example values: ['/dev/xvdb', '/dev/xvdc'])
-ebs_volume_list: ['/dev/xvdb']
+ebs_volume_list: ['/dev/xvdb', '/dev/xvdc']
 
 # type of ebs volumes (domain: [gp2, io1, standard])
 ebs_volume_type: "gp2"
