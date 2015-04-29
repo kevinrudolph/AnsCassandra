@@ -1,18 +1,72 @@
 ---
 # file: /roles/aws/tasks/main.yml
 
-- name: Install Python
-  sudo: yes
-  apt: name=python update_cache=yes
-  
-- name: Install Python PIP
-  sudo: yes
-  apt: name=python-pip
-  
-- name: Install AWS CLI
-  sudo: yes
-  pip: name=awscli
-
 - name: Install Sysstat
   sudo: yes
   apt: name=sysstat update_cache=yes
+
+- name: "Create config dir: ../.aws/"
+  file: >
+    path="{{ home_dir }}/results"
+    state=directory
+    recurse=yes
+    owner={{ user }}
+    group={{ user }}
+    mode="0755"
+
+- name: Create file '$HOME/exe_iostat_load.sh'
+  template: >
+    src=exe_iostat_load.sh.j2
+    dest={{ home_dir }}/exe_iostat_load.sh
+    owner={{ user }}
+    group={{ user }}
+    mode=0755
+
+- name: Create file '$HOME/exe_iostat_run.sh'
+  template: >
+    src=exe_iostat_run.sh.j2
+    dest={{ home_dir }}/exe_iostat_run.sh
+    owner={{ user }}
+    group={{ user }}
+    mode=0755
+
+- name: "Install package: python-pip"
+  sudo: true
+  apt: >
+    name=python-pip
+    state=latest
+    update_cache=yes
+
+- name: "Install package: boto"
+  sudo: true
+  pip: name=boto state=latest
+
+- name: "Install package: awscli"
+  sudo: true
+  pip: name=awscli state=latest
+
+- name: "Install package: ansible"
+  sudo: true
+  apt: name=ansible state=latest
+
+- name: "Create config dir: ../.aws/"
+  file: >
+    path="{{ home_dir }}/.aws"
+    state=directory
+    recurse=yes
+    owner={{ user }}
+    group={{ user }}
+    mode="0755"
+
+- name: "Create AWS CLI config file: ../.aws/config"
+  template: >
+    src="awscli_config.j2"
+    dest="{{ home_dir }}/.aws/config"
+    owner={{ user }}
+    group={{ user }}
+    mode=0600
+
+- name: "Export AWS_CONFIG_FILE in ../.bashrc"
+  lineinfile: >
+    dest=/home/ubuntu/.bashrc
+    line="export AWS_CONFIG_FILE={{ home_dir }}//.aws/config"
