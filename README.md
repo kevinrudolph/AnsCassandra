@@ -1,5 +1,8 @@
 This Ansible playbook deploys an Apache Cassandra cluster on an AWS EC2 cluster running Ubuntu operationg system.
 
+=== Configure AWS EC2 Security Group ===
+- choose security group that allows all inbound and outbound traffic
+
 
 === Deploy cluster ===
 
